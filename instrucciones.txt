@@ -1,0 +1,23 @@
+El tapete se divide en cuadros con números del 0 al 36, siendo números negros: 2,
+4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33 y 35, y números colorados:
+1, 3, 5, 7, 9, 12. 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34 y 36.
+Números menores son los comprendidos entre el 1 y el 18, y números mayores los
+comprendidos entre el 19 y el 36. Todas estas chances se llaman simples.
+El número cero no tiene color ni pertenece a ninguna de estas combinaciones.
+
+* Apuestas y premios
+
+Pleno: paga 35 veces la postura;
+Negro;Colorado;Mayores;Menores;Par;Impar: duplican
+
+
+*Momento de las apuestas
+
+Se inician las apuestas en cuanto el croupier dice: “Hagan juego, señores” , y termina cuando
+ después de hacer girar la ruleta dice: “No va más”. Seguidamente se
+“canta” el número correspondiente a la casilla donde cayó la bolilla para hacer saber cuál
+ ha sido la suerte. Por ejemplo, si sale el 10 dirá: “Diez, negro par y menor”.
+Si sale el 27 dirá: “Veintisiete, colorado, impar y mayor”. Una vez pagadas las
+apuestas ganadoras se comienza de igual forma.
+
+¡A jugar!
