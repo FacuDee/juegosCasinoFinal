@@ -34,7 +34,7 @@ export class Ruleta {
     }
  
  
-    public Apostar() {
+    public apostar() {
      if (this.apuesta > this.saldo) {
         console.log("No tiene suficiente saldo para apostar");
      } else {
@@ -43,7 +43,7 @@ export class Ruleta {
   }
  
  
-    public  GirarRuleta(): number{
+    public  girarRuleta(): number{
        let numero: number = Math.floor(Math.random() * 37);
        let numerosColorados = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]; 
  
@@ -92,7 +92,7 @@ export class Ruleta {
  
  
  let Ruleta1= new Ruleta(10000, 1000, 7);
- Ruleta1.Apostar();
+ Ruleta1.apostar();
  Ruleta1.resultadoApuesta();
  
  
