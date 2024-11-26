@@ -3,12 +3,15 @@ import * as rsl from "readline-sync";
 import { Jugador } from "./Jugador";
 
 export class TragamonedasPlus extends Tragamonedas {
+  private resultadoExtra: string[];
+
   constructor() {
     super(
       "Tragamonedas Plus",
       20,
       "Consigue tres 🍒 en cualquiera de las dos filas para ganar."
     );
+    this.resultadoExtra = [];
   }
 
   jugar(jugador: Jugador): void {
@@ -16,14 +19,17 @@ export class TragamonedasPlus extends Tragamonedas {
     let apuesta: number;
 
     while (true) {
-      apuesta = parseInt(rsl.question("Ingrese su apuesta: "), 10);
+      apuesta = parseInt(
+        rsl.question(`Ingrese su apuesta (minima ${this.getApuesta()}): `),
+        10
+      );
 
-      if (!isNaN(apuesta) && apuesta >= this.getApuestaMin()) {
+      if (!isNaN(apuesta) && apuesta >= this.getApuesta()) {
         break;
       }
 
       console.log(
-        `La apuesta mínima es ${this.getApuestaMin()}. Intente nuevamente.`
+        `La apuesta mínima es ${this.getApuesta()}. Intente nuevamente.`
       );
     }
 
@@ -32,43 +38,46 @@ export class TragamonedasPlus extends Tragamonedas {
   }
 
   realizarApuesta(jugador: Jugador, monto: number): void {
-    if (jugador.getfichas() < monto) {
+    if (jugador.getFichas() < monto) {
       console.log(
-        `${jugador.getnombre()} no tiene suficientes fichas para apostar.`
+        `${jugador.getNombre()} no tiene suficientes fichas para apostar.`
       );
       return;
     }
 
     jugador.apostar(monto);
+    this.apuestaActual = monto;
 
-    const resultado1 = [
+    this.resultadoActual = [
       this.reels[this.getRandom()],
       this.reels[this.getRandom()],
       this.reels[this.getRandom()],
     ];
-    const resultado2 = [
+    this.resultadoExtra = [
       this.reels[this.getRandom()],
       this.reels[this.getRandom()],
       this.reels[this.getRandom()],
     ];
 
-    console.log("Resultado 1:", resultado1);
-    console.log("Resultado 2:", resultado2);
+    console.log("Resultado 1:", this.resultadoActual);
+    console.log("Resultado 2:", this.resultadoExtra);
 
-    this.resultado(jugador, [resultado1, resultado2], monto);
+    this.resultado(jugador);
   }
 
-  resultado(jugador: Jugador, resultado: string[][], monto: number): void {
-    const esGanador = resultado.some(
+  resultado(jugador: Jugador): void {
+    const esGanador = [this.resultadoActual, ...this.resultadoExtra].some(
       (res) => JSON.stringify(res) === JSON.stringify(this.combinacionGanadora)
     );
 
     if (esGanador) {
-      const premio = monto * 15;
+      const premio = this.apuestaActual * 15;
       jugador.ganarApuesta(premio);
-      console.log(`¡${jugador.getnombre()} ganó ${premio} fichas!`);
+      console.log(`¡${jugador.getNombre()} ganó ${premio} fichas!`);
     } else {
-      console.log(`${jugador.getnombre()} perdió ${monto} fichas.`);
+      console.log(
+        `${jugador.getNombre()} perdió ${this.apuestaActual} fichas.`
+      );
     }
   }
 }

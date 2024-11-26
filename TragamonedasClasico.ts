@@ -12,14 +12,17 @@ export class TragamonedasClasico extends Tragamonedas {
     let apuesta: number;
 
     while (true) {
-      apuesta = parseInt(rsl.question("Ingrese su apuesta: "), 10);
+      apuesta = parseInt(
+        rsl.question(`Ingrese su apuesta (minima ${this.getApuesta()}): `),
+        10
+      );
 
-      if (!isNaN(apuesta) && apuesta >= this.getApuestaMin()) {
+      if (!isNaN(apuesta) && apuesta >= this.getApuesta()) {
         break;
       }
 
       console.log(
-        `La apuesta mínima es ${this.getApuestaMin()}. Intente nuevamente.`
+        `La apuesta mínima es ${this.getApuesta()}. Intente nuevamente.`
       );
     }
 
