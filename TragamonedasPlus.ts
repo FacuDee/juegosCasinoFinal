@@ -66,7 +66,7 @@ export class TragamonedasPlus extends Tragamonedas {
   }
 
   resultado(jugador: Jugador): void {
-    const esGanador = [this.resultadoActual, ...this.resultadoExtra].some(
+    const esGanador = [this.resultadoActual, this.resultadoExtra].some(
       (res) => JSON.stringify(res) === JSON.stringify(this.combinacionGanadora)
     );
 

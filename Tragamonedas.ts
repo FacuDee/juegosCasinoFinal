@@ -5,7 +5,7 @@ import * as rsl from "readline-sync";
 export class Tragamonedas extends JuegoCasino {
   reels: string[] = ["🍒", "🍋", "🍉", "🍇", "🍌"];
   combinacionGanadora: string[];
-  protected resultadoActual: string[] | string[][] = [];
+  protected resultadoActual: string[];
   protected apuestaActual: number;
 
   constructor(nombre: string, apuestaMin: number, miniInstruccion: string) {
