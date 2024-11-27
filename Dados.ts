@@ -85,18 +85,20 @@ export class Dados extends JuegoCasino{
   }
 
   public validarApuesta(saldo:number){
-    let eleccionApuesta :number = parseInt(rsl.questionInt("Cuanto desea apostar?? : "),10);
+    let eleccionApuesta :number = parseInt(rsl.questionInt("La apuesta minima es "+this.apuestaMin+"Cuanto desea apostar?? : "),10);
     while (eleccionApuesta < this.apuestaMin  || eleccionApuesta > saldo   ){ // mayor a saldo y mayor que apuesta minima 5
-      console.log("Ingrese nuevamente la puesta debe ser menor al saldo y mayor a 5 (apuesta Minima)");
-      eleccionApuesta  = parseInt(rsl.question("Cuanto desea apostar?? : "), 10);
+      jugador.apostar(eleccionApuesta);// metodo de Jugador, Se resta apuesta al saldo
+      eleccionApuesta  = parseInt(rsl.question("La apuesta minima es "+this.apuestaMin+"Cuanto desea apostar?? : "), 10);
     }
     this.setapuesta(eleccionApuesta);
   }
  //**************** Comienzo juego   ***************** */
   jugar (jugador:Jugador){
+    console.log(this.miniInstruccion); 
     console.log("Saldo inicial: ", jugador.getfichas());
     this.validarApuesta(jugador.getfichas());//Pasamos Saldo por parametro
     let ganancia: number = this.comenzarjugo(jugador.getfichas());
+    // ganacia *1,5 si gana Natural, *1,2 si gana point, o 0 si pierde.
     let nuevoSaldo= jugador.getfichas() - this.getapuesta() + ganancia;
     jugador.setfichas(nuevoSaldo);
     console.log("Saldo final: ", jugador.getfichas());
