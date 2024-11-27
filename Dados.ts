@@ -84,11 +84,15 @@ export class Dados extends JuegoCasino{
     } return apuesta;
   }
 
-  public validarApuesta(saldo:number){
+  public validarApuesta(jugador:Jugador){
     let eleccionApuesta :number = parseInt(rsl.questionInt("La apuesta minima es "+this.apuestaMin+"Cuanto desea apostar?? : "),10);
-    while (eleccionApuesta < this.apuestaMin  || eleccionApuesta > saldo   ){ // mayor a saldo y mayor que apuesta minima 5
+    if (eleccionApuesta>=this.apuestaMin && eleccionApuesta<=jugador.getfichas()){
       jugador.apostar(eleccionApuesta);// metodo de Jugador, Se resta apuesta al saldo
-      eleccionApuesta  = parseInt(rsl.question("La apuesta minima es "+this.apuestaMin+"Cuanto desea apostar?? : "), 10);
+    }else{
+      while (eleccionApuesta < this.apuestaMin  || eleccionApuesta > jugador.getfichas() ){ // mayor a saldo y mayor que apuesta minima 5
+        jugador.apostar(eleccionApuesta);// metodo de Jugador, Se resta apuesta al saldo
+        eleccionApuesta  = parseInt(rsl.question("La apuesta minima es "+this.apuestaMin+"Cuanto desea apostar?? : "), 10);
+      }
     }
     this.setapuesta(eleccionApuesta);
   }
@@ -96,11 +100,10 @@ export class Dados extends JuegoCasino{
   jugar (jugador:Jugador){
     console.log(this.miniInstruccion); 
     console.log("Saldo inicial: ", jugador.getfichas());
-    this.validarApuesta(jugador.getfichas());//Pasamos Saldo por parametro
-    let ganancia: number = this.comenzarjugo(jugador.getfichas());
+    this.validarApuesta(jugador);//Pasamos Saldo por parametro
+    let ganancia: number = this.comenzarjugo(this.getapuesta());
     // ganacia *1,5 si gana Natural, *1,2 si gana point, o 0 si pierde.
-    let nuevoSaldo= jugador.getfichas() - this.getapuesta() + ganancia;
-    jugador.setfichas(nuevoSaldo);
+    jugador.ganarApuesta(ganancia);
     console.log("Saldo final: ", jugador.getfichas());
     this.resultado();
   }
