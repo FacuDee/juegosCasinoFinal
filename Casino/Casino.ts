@@ -123,20 +123,20 @@ export class Casino {
         let seleccion: number = this.validarEleccion(); //Se llama a la eleccion de juego y validacion
         while (seleccion != 0) {
           if (seleccion == 1) {
-            const tragamonedas: Tragamonedas = new Tragamonedas()
-            tragamonedas.jugar();
-            tragamonedas.resultado(["Facu"],400);
-            //jugadorSeleccionado.jugar();
-            //jugadorSeleccionado.resultado();
+              this.arrJuegos[0].jugar(jugadorSeleccionado);
+            
           } else if (seleccion == 2) {
-            console.log(" jugarTragamonedas6T() ");
+            this.arrJuegos[1].jugar(jugadorSeleccionado);
+        
           } else if (seleccion == 3) {
-            this.arrJuegos[0].getMiniInstruccion();
-            this.arrJuegos[0].jugar(jugadorSeleccionado);
+             this.arrJuegos[2].jugar(jugadorSeleccionado);
+          
           } else if (seleccion == 4) {
-            console.log(" jugarBlackJack() ");
+            this.arrJuegos[3].jugar(jugadorSeleccionado);
+          
           } else {
-            console.log(" jugarRuleta() ");
+            this.arrJuegos[4].jugar(jugadorSeleccionado);
+          
           }
           // Al finalizar el juego se muestra el menu para poder jugar otro juego.
           this.mostrarMenu();
