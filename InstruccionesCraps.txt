@@ -1,0 +1,41 @@
+
+--- Juego de Craps ---
+
+Bienvenido al Juego de Craps. ¡Prepárate para poner a prueba tu suerte!
+
+Instrucciones:
+
+	1. Comienza tirando dos dados.
+	2. Si la suma de los dados es 7 u 11 en el primer tiro, ganas automáticamente (¡Natural!).
+	3. Si sacas 2, 3 o 12, pierdes automáticamente (¡Craps!).
+	4. Cualquier otro resultado establece un "Point".
+	5. Continúa tirando los dados hasta que:
+	   - Saques nuevamente el "Point" para ganar, o
+	   - Saques un 7 para perder (Seven Out).
+
+Ejemplo de Juego:
+
+    - Primer Tiro: Tiras los dados y obtienes un 4 y un 3. La suma es 7.
+		     Mensaje: "¡Natural! Ha ganado en el primer tiro."
+
+    - Segundo Juego: Tiras los dados y obtienes un 5 y un 6. La suma es 11.
+                       Mensaje: "¡Natural! Ha ganado en el primer tiro."
+
+    - Tercer Juego: Tiras los dados y obtienes un 4 y un 4. La suma es 8.
+  		      Mensaje: "Establece un POINT con el resultado 8."
+	            Tiras nuevamente y obtienes un 3 y un 4.
+                      Mensaje: "7 Seven Out". Pierdes.
+    - Cuarto juego:
+                    Tiras los dados y obtienes un 4 y un 2. La suma es 6.
+                      Mensaje: "Establece un POINT con el resultado 6."
+
+                    Tiras los dados nuevamente y obtienes un 3 y un 2. La suma es 5.
+                      Mensaje: "La suma de los dados es 5. No coinciden, tira nuevamente."
+
+                     Ahora tiras los dados y obtienes un 2 y un 4. La suma es 6.
+                       Mensaje: "HA GANADO: X $, ya que el primer tiro: 6 es igual al nuevo tiro: 6, es POINT.
+
+
+Recuerda que la apuesta mínima es de 5 $ y no puede superar tu saldo Total.
+
+¡Buena suerte y que los dados estén a tu favor!
