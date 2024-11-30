@@ -1,11 +1,19 @@
 import { JuegoCasino } from "./JuegoCasino";
+import { Jugador } from
 
 export class BlackJack extends JuegoCasino {
     private mazo: string[];
     private manoJugador: string[]; 
     private manoCrupier: string[];
 
-  constructor(apuestaMin: number) {
+
+    /*constructor(apuestaMin: number, private jugador: Jugador) {
+  super("BlackJack", apuestaMin, "Obtén un puntaje lo más cercano a 21 sin pasarte, superando al crupier.");
+  this.mazo = this.crearMazo();
+  this.manoJugador = [];
+  this.manoCrupier = [];
+} */ 
+  constructor(apuestaMin: number, jugador: Jugador) {
     super("BlackJack", apuestaMin, "Obtén un puntaje lo más cercano a 21 sin pasarte, superando al crupier."
     );
     this.mazo = this.crearMazo();
