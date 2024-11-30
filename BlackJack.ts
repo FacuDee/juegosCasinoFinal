@@ -5,14 +5,17 @@ export class BlackJack extends JuegoCasino {
     private mazo: string[];
     private manoJugador: string[]; 
     private manoCrupier: string[];
+    private jugador: Jugador;     
 
   constructor(apuestaMin: number, jugador: Jugador) {
     super("BlackJack", apuestaMin, "Obtén un puntaje lo más cercano a 21 sin pasarte, superando al crupier."
     );
+    this.jugador = jugador;
     this.mazo = this.crearMazo();
     this.manoJugador = [];
     this.manoCrupier = [];
   }
+
 
   private crearMazo(): string[] {
     const palos = ["Corazones", "Diamantes", "Tréboles", "Picas"];
@@ -114,21 +117,26 @@ export class BlackJack extends JuegoCasino {
     }
   }
 
-public resultado(): void { //método abstracto de la clase padre
-    // Llamo a determinarGanador() y retorno el resultado
-    return this.determinarGanador(); 
-    /* me da error porque en el método abstracto es un void, pero como
-    no está extendida esta clase en las demás, no sé cómo prefieren que lo hagamos*/
+    public resultado(): void { //método abstracto de la clase padre 
+      this.determinarGanador();
     }
  
 // Iniciar
-  public jugar(): void {
-    this.iniciarJuego();
-    this.repartirCartas();
-    this.turnoJugador();
-    if (this.calcularPuntaje(this.manoJugador) <= 21) {
-      this.turnoCrupier();
-      this.determinarGanador();
-    }
+public jugar(): void {
+  if (this.jugador.getFichas() < this.getApuesta()) {
+    console.log(`${this.jugador.getNombre()} no tiene suficientes fichas para apostar.`);
+    return;
   }
-}; 
+
+  this.iniciarJuego();
+  this.repartirCartas();
+  this.turnoJugador();
+
+  if (this.calcularPuntaje(this.manoJugador) <= 21) {
+    this.turnoCrupier();
+    this.determinarGanador();
+  }
+}
+
+
+}
