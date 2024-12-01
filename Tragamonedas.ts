@@ -15,6 +15,10 @@ export class Tragamonedas extends JuegoCasino {
     this.apuestaActual = 0;
   }
 
+  generarRandom(): number {
+    return Math.floor(Math.random() * this.reels.length);
+  }
+
   jugar(jugador: Jugador): void {
     console.log(
       `¡Bienvenido ${jugador.getNombre()}: jugando al ${this.getNombre()}!`
@@ -36,15 +40,9 @@ export class Tragamonedas extends JuegoCasino {
     this.realizarApuesta(jugador, apuesta);
   }
 
-  getRandom(): number {
-    return Math.floor(Math.random() * this.reels.length);
-  }
-
   realizarApuesta(jugador: Jugador, monto: number): void {
     if (jugador.getFichas() < monto) {
-      console.log(
-        `${jugador.getNombre()} no tiene suficientes fichas para apostar.`
-      );
+      console.log(`No tiene suficientes fichas para apostar.`);
       return;
     }
 
@@ -52,9 +50,9 @@ export class Tragamonedas extends JuegoCasino {
     this.apuestaActual = monto;
 
     this.resultadoActual = [
-      this.reels[this.getRandom()],
-      this.reels[this.getRandom()],
-      this.reels[this.getRandom()],
+      this.reels[this.generarRandom()],
+      this.reels[this.generarRandom()],
+      this.reels[this.generarRandom()],
     ];
 
     console.log("Resultado:", this.resultadoActual);
@@ -68,11 +66,9 @@ export class Tragamonedas extends JuegoCasino {
     ) {
       const premio = this.apuestaActual * 10;
       jugador.ganarApuesta(premio);
-      console.log(`¡${jugador.getNombre()} ganó ${premio} fichas!`);
+      console.log(`Ganaste ${premio} fichas!`);
     } else {
-      console.log(
-        `${jugador.getNombre()} perdió ${this.apuestaActual} fichas.`
-      );
+      console.log(`Perdiste ${this.apuestaActual} fichas.`);
     }
   }
 }
