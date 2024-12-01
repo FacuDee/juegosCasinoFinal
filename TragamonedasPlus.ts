@@ -49,14 +49,14 @@ export class TragamonedasPlus extends Tragamonedas {
     this.apuestaActual = monto;
 
     this.resultadoActual = [
-      this.reels[this.getRandom()],
-      this.reels[this.getRandom()],
-      this.reels[this.getRandom()],
+      this.reels[this.generarRandom()],
+      this.reels[this.generarRandom()],
+      this.reels[this.generarRandom()],
     ];
     this.resultadoExtra = [
-      this.reels[this.getRandom()],
-      this.reels[this.getRandom()],
-      this.reels[this.getRandom()],
+      this.reels[this.generarRandom()],
+      this.reels[this.generarRandom()],
+      this.reels[this.generarRandom()],
     ];
 
     console.log("Resultado 1:", this.resultadoActual);
