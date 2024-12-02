@@ -1,3 +1,5 @@
+import { Jugador } from "./Jugador"; //importé la clase
+
 export abstract class JuegoCasino {
     private nombre: string;
     private apuesta: number;
@@ -9,7 +11,7 @@ export abstract class JuegoCasino {
       this.miniInstruccion = miniInstruccion;
     }
   
-    abstract jugar(): void;
+    abstract jugar(jugador: Jugador): void; //agregué parametros
   
     abstract resultado(): void;
   
