@@ -1,3 +1,4 @@
+import { IApuesta } from "./IApuesta";
 
 export class Jugador implements IApuesta { // Con esta implementación, nos aseguramos que cualquier clase que maneje 
   //apuestas (como Jugador) implemente los métodos requeridos por la interfaz IApuesta.
