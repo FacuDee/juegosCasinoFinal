@@ -10,4 +10,4 @@ El programa deberá proveer funcionalidades para elegir un juego y realizar una 
 
 Generar el UML (diagrama de clases) correspondiente al programa que van a desarrollar. Pueden agregar todo lo que consideren necesario para el correcto funcionamiento del programa, siempre que se cumplan los requerimientos mínimos exigidos. Priorizar funcionalidad a extensión del trabajo. 
 
-Se debe realizar un proyecto NPM nuevo.
+Se debe realizar un proyecto NPM nuevo. 

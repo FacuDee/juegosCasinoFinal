@@ -12,7 +12,7 @@ export class Ruleta extends JuegoCasino{
        this.numeroApostado = numeroApostado;
     }
  
-    public getApuesta(): number {
+    public getApuesta(): number { 
        return this.apuesta;
     }
  
