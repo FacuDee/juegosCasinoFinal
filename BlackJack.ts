@@ -1,14 +1,18 @@
+import * as rls from "readline-sync";
 import { JuegoCasino } from "./JuegoCasino";
 import { Jugador } from "./Jugador";
 
 export class BlackJack extends JuegoCasino {
-    private mazo: string[];
-    private manoJugador: string[]; 
-    private manoCrupier: string[];
-    private jugador: Jugador;     
+  private mazo: string[];
+  private manoJugador: string[];
+  private manoCrupier: string[];
+  private jugador: Jugador;
 
   constructor(apuestaMin: number, jugador: Jugador) {
-    super("BlackJack", apuestaMin, "Obtén un puntaje lo más cercano a 21 sin pasarte, superando al crupier."
+    super(
+      "BlackJack",
+      apuestaMin,
+      "Obtén un puntaje lo más cercano a 21 sin pasarte, superando al crupier."
     );
     this.jugador = jugador;
     this.mazo = this.crearMazo();
@@ -16,11 +20,22 @@ export class BlackJack extends JuegoCasino {
     this.manoCrupier = [];
   }
 
-
   private crearMazo(): string[] {
     const palos = ["Corazones", "Diamantes", "Tréboles", "Picas"];
     const valores = [
-      "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "J",
+      "Q",
+      "K",
+      "A",
     ];
     let mazo: string[] = [];
     for (const palo of palos) {
@@ -40,7 +55,7 @@ export class BlackJack extends JuegoCasino {
     this.mazo = this.crearMazo();
     this.manoJugador = [];
     this.manoCrupier = [];
-}
+  }
   private obtenerValorCarta(carta: string): number {
     const valor = carta.split(" ")[0];
     if (["J", "Q", "K"].includes(valor)) return 10;
@@ -48,7 +63,7 @@ export class BlackJack extends JuegoCasino {
     return parseInt(valor);
   }
 
-// de una mano: 
+  // de una mano:
   private calcularPuntaje(mano: string[]): number {
     let total = 0;
     let ases = 0;
@@ -71,11 +86,18 @@ export class BlackJack extends JuegoCasino {
   private repartirCartas(): void {
     this.manoJugador = [this.mazo.pop()!, this.mazo.pop()!];
     this.manoCrupier = [this.mazo.pop()!, this.mazo.pop()!];
-  };
+  }
 
   public turnoJugador(): void {
-    console.log("Tu mano:", this.manoJugador, "Puntaje:", this.calcularPuntaje(this.manoJugador));
-    let decision = prompt("¿Quieres 'pedir' carta o 'quedarte'? (hit/stand)")?.toLowerCase();
+    console.log(
+      "Tu mano:",
+      this.manoJugador,
+      "Puntaje:",
+      this.calcularPuntaje(this.manoJugador)
+    );
+    let decision = rls
+      .question("¿Quieres 'pedir' carta o 'quedarte'? (hit/stand): ")
+      .toLowerCase();
 
     while (decision === "Pedir Carta") {
       this.manoJugador.push(this.mazo.pop()!);
@@ -87,7 +109,9 @@ export class BlackJack extends JuegoCasino {
         return;
       }
 
-      decision = prompt("¿Queres pedir otra carta o quedarte?)")?.toLowerCase();
+      decision = rls
+        .question("¿Quieres pedir otra carta o quedarte? (hit/stand): ")
+        .toLowerCase();
     }
   }
 
@@ -96,7 +120,10 @@ export class BlackJack extends JuegoCasino {
 
     while (this.calcularPuntaje(this.manoCrupier) < 17) {
       this.manoCrupier.push(this.mazo.pop()!);
-      console.log("El/la crupier toma una carta. Nueva mano:", this.manoCrupier);
+      console.log(
+        "El/la crupier toma una carta. Nueva mano:",
+        this.manoCrupier
+      );
     }
   }
 
@@ -104,7 +131,12 @@ export class BlackJack extends JuegoCasino {
     const puntajeJugador = this.calcularPuntaje(this.manoJugador);
     const puntajeCrupier = this.calcularPuntaje(this.manoCrupier);
 
-    console.log("Tu puntaje:", puntajeJugador, "Puntaje del crupier:", puntajeCrupier);
+    console.log(
+      "Tu puntaje:",
+      puntajeJugador,
+      "Puntaje del crupier:",
+      puntajeCrupier
+    );
 
     if (puntajeJugador > 21) {
       console.log("Te pasaste. ¡Perdiste!");
@@ -117,26 +149,27 @@ export class BlackJack extends JuegoCasino {
     }
   }
 
-    public resultado(): void { //método abstracto de la clase padre 
-      this.determinarGanador();
-    }
- 
-// Iniciar
-public jugar(): void {
-  if (this.jugador.getFichas() < this.getApuesta()) {
-    console.log(`${this.jugador.getNombre()} no tiene suficientes fichas para apostar.`);
-    return;
-  }
-
-  this.iniciarJuego();
-  this.repartirCartas();
-  this.turnoJugador();
-
-  if (this.calcularPuntaje(this.manoJugador) <= 21) {
-    this.turnoCrupier();
+  public resultado(): void {
+    //método abstracto de la clase padre
     this.determinarGanador();
   }
-}
 
+  // Iniciar
+  public jugar(): void {
+    if (this.jugador.getFichas() < this.getApuestaMin()) {
+      console.log(
+        `${this.jugador.getNombre()} no tiene suficientes fichas para apostar.`
+      );
+      return;
+    }
 
+    this.iniciarJuego();
+    this.repartirCartas();
+    this.turnoJugador();
+
+    if (this.calcularPuntaje(this.manoJugador) <= 21) {
+      this.turnoCrupier();
+      this.determinarGanador();
+    }
+  }
 }

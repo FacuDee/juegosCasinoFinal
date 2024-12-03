@@ -121,20 +121,19 @@ export class Dados extends JuegoCasino {
   }
 
   public validarApuesta(jugador: Jugador) {
-    let eleccionApuesta: number = parseInt(
-      rsl.questionInt(
-        "La apuesta minima es " + this.apuestaMin + "Cuanto desea apostar?? : "
-      ),
-      10
+    let eleccionApuesta: number = rsl.questionInt(
+      "La apuesta minima es " +
+        this.getApuestaMin() +
+        "Cuanto desea apostar?? : "
     );
     if (
-      eleccionApuesta >= this.apuestaMin &&
-      eleccionApuesta <= jugador.getfichas()
+      eleccionApuesta >= this.getApuestaMin() &&
+      eleccionApuesta <= jugador.getFichas()
     ) {
       jugador.apostar(eleccionApuesta); // metodo de Jugador, Se resta apuesta al saldo
     } else {
       while (
-        eleccionApuesta < this.apuestaMin ||
+        eleccionApuesta < this.getApuestaMin() ||
         eleccionApuesta > jugador.getFichas()
       ) {
         // mayor a saldo y mayor que apuesta minima 5
@@ -142,7 +141,7 @@ export class Dados extends JuegoCasino {
         eleccionApuesta = parseInt(
           rsl.question(
             "La apuesta minima es " +
-              this.apuestaMin +
+              this.getApuestaMin() +
               "Cuanto desea apostar?? : "
           ),
           10
@@ -153,7 +152,7 @@ export class Dados extends JuegoCasino {
   }
   //**************** Comienzo juego   ***************** */
   jugar(jugador: Jugador) {
-    console.log(this.miniInstruccion);
+    console.log(this.getMiniInstruccion());
     console.log("Saldo inicial: ", jugador.getFichas());
     this.validarApuesta(jugador); //Pasamos Saldo por parametro
     let ganancia: number = this.comenzarjugo(this.getapuesta());

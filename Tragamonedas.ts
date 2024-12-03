@@ -28,13 +28,13 @@ export class Tragamonedas extends JuegoCasino {
     // Pedir al jugador que haga su apuesta
     do {
       apuesta = parseInt(
-        rsl.question(`Ingrese su apuesta (minima ${this.getApuesta()}): `),
+        rsl.question(`Ingrese su apuesta (minima ${this.getApuestaMin()}): `),
         10
       );
-      if (isNaN(apuesta) || apuesta < this.getApuesta()) {
+      if (isNaN(apuesta) || apuesta < this.getApuestaMin()) {
         console.log("La apuesta no es válida. Intente nuevamente.");
       }
-    } while (isNaN(apuesta) || apuesta < this.getApuesta());
+    } while (isNaN(apuesta) || apuesta < this.getApuestaMin());
 
     // Realizar la apuesta y calcular el resultado
     this.realizarApuesta(jugador, apuesta);

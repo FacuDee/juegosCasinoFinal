@@ -20,16 +20,16 @@ export class TragamonedasPlus extends Tragamonedas {
 
     while (true) {
       apuesta = parseInt(
-        rsl.question(`Ingrese su apuesta (minima ${this.getApuesta()}): `),
+        rsl.question(`Ingrese su apuesta (minima ${this.getApuestaMin()}): `),
         10
       );
 
-      if (!isNaN(apuesta) && apuesta >= this.getApuesta()) {
+      if (!isNaN(apuesta) && apuesta >= this.getApuestaMin()) {
         break;
       }
 
       console.log(
-        `La apuesta mínima es ${this.getApuesta()}. Intente nuevamente.`
+        `La apuesta mínima es ${this.getApuestaMin()}. Intente nuevamente.`
       );
     }
 

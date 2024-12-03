@@ -64,10 +64,15 @@ export class Ruleta extends JuegoCasino {
   }
 
   public validarApuesta(jugador: Jugador): void {
+    this.setApuesta(Number(rsl.question("Ingrese una apuesta valida: ")));
+    this.setNumeroApostado(
+      Number(rsl.question("Ingrese un numero entre 0 y 36:"))
+    );
     while (
-      this.apuesta < this.apuestaMin ||
+      this.apuesta < this.getApuestaMin() ||
       this.apuesta > jugador.getFichas() ||
-      this.numeroApostado > 36
+      this.numeroApostado > 36 ||
+      this.numeroApostado < 0
     ) {
       console.log("Apuesta invalida. Intente nuevamente.");
       this.setApuesta(Number(rsl.question("Ingrese una apuesta valida: ")));
@@ -75,30 +80,32 @@ export class Ruleta extends JuegoCasino {
         Number(rsl.question("Ingrese un numero entre 0 y 36:"))
       );
     }
-    console.log(
-      `Haz apostado ${this.apuesta} al numero ${this.numeroApostado}`
-    );
+    jugador.apostar(this.apuesta);
+    // console.log(
+    //   `Haz apostado ${this.apuesta} al numero ${this.numeroApostado}`
+    // );
   }
 
   public resultado(jugador: Jugador): void {
     let numeroGanador = this.girarRuleta();
+    let ganancia: number;
 
     if (numeroGanador === this.numeroApostado) {
-      let ganancia = this.apuesta * 35;
-      jugador.getFichas() += ganancia;
-      console.log(`Acertaste! ${numeroGanador}. Has ganado ${ganancia}.`);
+      ganancia = this.apuesta * 35;
+      jugador.ganarApuesta(ganancia);
     } else {
-      jugador.getFichas() -= this.apuesta;
-      console.log(` No acertaste. Tu nuevo saldo es ${Jugador.getFichas()}.`);
+      ganancia = 0;
+
+      console.log(` No acertaste. Tu nuevo saldo es ${jugador.getFichas()}.`);
     }
 
-    if (Jugador.getFichas() <= 0) {
+    if (jugador.getFichas() <= 0) {
       console.log("No tienes más saldo para jugar");
     }
   }
 
   public jugar(jugador: Jugador) {
-    console.log(this.miniInstruccion);
+    console.log(this.getMiniInstruccion());
     this.validarApuesta(jugador);
     this.resultado(jugador);
   }
