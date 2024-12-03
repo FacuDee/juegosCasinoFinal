@@ -73,15 +73,16 @@ export class Casino {
     //filter devuelve elementos que cumplen la condicion
     const jugador = jugadorFiltrado.length > 0 ? jugadorFiltrado[0] : undefined;
     if (!jugador) {
+      console.log("No figura en la lista. Debe darse de alta:");
       const jugador: Jugador = this.nuevoJugador();
       let teclaParaAvanzar: string = rsl.question(
-        " Presione ENTER para retornar al MENU PRINCIPAL "
+        "Presione ENTER para ir al MENU PRINCIPAL "
       );
       return jugador;
     } else {
       console.log(`Jugador encontrado: ${jugadorFiltrado[0].getNombre()}`);
       let teclaParaAvanzar: string = rsl.question(
-        " Presione ENTER para retornar al MENU PRINCIPAL"
+        "Presione ENTER para ir al MENU PRINCIPAL"
       );
       return jugador;
     }
@@ -91,7 +92,7 @@ export class Casino {
 
   mostrarMenu() {
     console.log(
-      "***************************************************************************************************"
+      "****************************************************************************************************"
     );
     console.log(
       "****************************************************************************************************"
@@ -121,10 +122,10 @@ export class Casino {
       "**                 ******      ********        ****.      ****      **     **      ****           **"
     );
     console.log(
-      "**   A            **           **    **       **           **       ** **  **     **  **          **"
+      "**                **           **    **       **           **       ** **  **     **  **          **"
     );
     console.log(
-      "**       EL       **           ********          *         **       **  ** **     **  **          **"
+      "**       AL       **           ********          *         **       **  ** **     **  **          **"
     );
     console.log(
       "**                **           **    **       .   **       **       **   ****     **  **          **"
@@ -142,7 +143,7 @@ export class Casino {
       "**                                                                                                **"
     );
     console.log(
-      "**      1. Tragamonedas (3 Tambores)                  2.Tragamonedas (6 Tambores)                 **"
+      "**      1. Tragamonedas (3 Tambores)                  2. Tragamonedas (6 Tambores)                **"
     );
     console.log(
       "**                                                                                                **"
@@ -215,5 +216,6 @@ export class Casino {
         seleccion = 0;
       }
     }
+    console.log("Saliendo del programa...");
   }
 }
