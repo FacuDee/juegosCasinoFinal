@@ -43,7 +43,7 @@ export class Ruleta extends JuegoCasino {
     if (numero === 0) {
       console.log("Verde");
     }
-    if (numerosColorados.includes(numero)) {
+    if (numerosColorados.indexOf(numero) !== -1) {
       console.log("Colorado");
     } else {
       console.log("Negro");

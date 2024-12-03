@@ -58,7 +58,7 @@ export class BlackJack extends JuegoCasino {
   }
   private obtenerValorCarta(carta: string): number {
     const valor = carta.split(" ")[0];
-    if (["J", "Q", "K"].includes(valor)) return 10;
+    if (["J", "Q", "K"].indexOf(valor) !== -1) return 10;
     if (valor === "A") return 11; // El manejo del 1/11 será dinámico
     return parseInt(valor);
   }
@@ -171,5 +171,8 @@ export class BlackJack extends JuegoCasino {
       this.turnoCrupier();
       this.determinarGanador();
     }
+    let teclaParaAbanzar: string = rls.question(
+      " Presione ENTER para retornar al MENU PRINCIPAL "
+    );
   }
 }
