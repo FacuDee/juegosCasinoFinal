@@ -1,0 +1,48 @@
+--- TRAGAMONEDAS ---
+
+Instrucciones:
+
+Bienvenido al tradicional juego de máquinas tragamonedas de nuestro casino. Podrás optar por Tragamonedas Clásico o Tragamonedas Plus. Sigue estas instrucciones para comenzar a jugar:
+
+Reglas Generales:
+
+- Cada jugador debe tener fichas para apostar.
+
+- Selecciona el juego que deseas jugar y realiza una apuesta.
+
+- El resultado de cada tirada se genera de manera aleatoria.
+
+
+Tragamonedas Clásico:
+
+* Objetivo: Consigue tres 🍒 seguidas en una misma fila para ganar.
+
+* Apuesta Mínima: 10 fichas.
+
+¿Cómo jugar?
+
+* Ingresa la cantidad de fichas que deseas apostar (debe ser igual o mayor a la apuesta mínima).
+
+* Observa los resultados en pantalla.
+
+* Si logras la combinación ganadora, ganarás 10 veces el valor de tu apuesta.
+
+
+Tragamonedas Plus:
+
+* Objetivo: Consigue tres 🍒 en cualquiera de las dos filas para ganar.
+
+* Apuesta Mínima: 20 fichas.
+
+¿Cómo jugar?
+
+* Ingresa la cantidad de fichas que deseas apostar (debe ser igual o mayor a la apuesta mínima).
+
+* Observa los resultados de las dos filas en pantalla.
+
+* Si logras la combinación ganadora en alguna de las filas, ganarás 15 veces el valor de tu apuesta.
+
+
+Puedes regresar al menú principal presionando ENTER después de cada tirada.
+
+¡Buena suerte y diviértete jugando a nuestras Tragamonedas!
