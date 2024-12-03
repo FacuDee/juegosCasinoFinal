@@ -124,7 +124,7 @@ export class Dados extends JuegoCasino {
     let eleccionApuesta: number = rsl.questionInt(
       "La apuesta minima es " +
         this.getApuestaMin() +
-        "Cuanto desea apostar?? : "
+        "; cuanto desea apostar?: "
     );
     if (
       eleccionApuesta >= this.getApuestaMin() &&
@@ -142,7 +142,7 @@ export class Dados extends JuegoCasino {
           rsl.question(
             "La apuesta minima es " +
               this.getApuestaMin() +
-              "Cuanto desea apostar?? : "
+              "; cuanto desea apostar?: "
           ),
           10
         );

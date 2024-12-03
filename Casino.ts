@@ -41,17 +41,19 @@ export class Casino {
   nuevoJugador(): Jugador {
     console.log("");
     console.log("------ Bienvenido al Alta Del Casino ---------");
-    let nombre: string = rsl.question("Ingrese Nombre :");
+    let nombre: string = rsl.question("Ingrese su nombre: ");
     while (!nombre) {
       console.log("El nombre no puede estar vacío.");
-      nombre = rsl.question("Ingrese Nombre: ");
+      nombre = rsl.question("Ingrese su nombre: ");
     }
     let fichas: number = rsl.questionInt(
-      "Ingrese Monto en Fichas, Mayor a 10 :"
+      "Ingrese la cantidad de fichas que quiere cargar: "
     );
     while (fichas < 10) {
       console.log("Monto inválido. Debe ser un número mayor a 10 fichas.");
-      fichas = parseInt(rsl.question("Ingrese Monto en Fichas: "));
+      fichas = parseInt(
+        rsl.question("Ingrese la cantidad de fichas que quiere cargar: ")
+      );
     }
     let nuevoJugador: Jugador = new Jugador(nombre, fichas);
     this.arrJugadores.push(nuevoJugador);
@@ -60,10 +62,10 @@ export class Casino {
   }
 
   seleccionJugador(): Jugador {
-    console.log(" Los Jugadores disponibles son: ");
+    console.log("JUGADORES DISPONIBLES: ");
     console.log(this.arrJugadores);
     let nombreUsuario: string = rsl.question(
-      "Ingrese Nombre de Jugador o enter para cargar un Jugador nuevo :"
+      "Ingrese Nombre de Jugador o ENTER para cargar un Jugador nuevo: "
     );
     const jugadorFiltrado = this.getArrJugadores().filter(
       (c) => c.getNombre() == nombreUsuario
@@ -71,7 +73,6 @@ export class Casino {
     //filter devuelve elementos que cumplen la condicion
     const jugador = jugadorFiltrado.length > 0 ? jugadorFiltrado[0] : undefined;
     if (!jugador) {
-      console.log(" Jugador no encontrado. se dara alta uno Nuevo");
       const jugador: Jugador = this.nuevoJugador();
       let teclaParaAvanzar: string = rsl.question(
         " Presione ENTER para retornar al MENU PRINCIPAL "
@@ -80,7 +81,7 @@ export class Casino {
     } else {
       console.log(`Jugador encontrado: ${jugadorFiltrado[0].getNombre()}`);
       let teclaParaAvanzar: string = rsl.question(
-        " Presione ENTER para retornar al MENU PRINCIPAL "
+        " Presione ENTER para retornar al MENU PRINCIPAL"
       );
       return jugador;
     }
@@ -135,13 +136,13 @@ export class Casino {
       "**                                                                                                **"
     );
     console.log(
-      "**      Seleccione EL Juego Deseado:                                                              **"
+      "**      Seleccione el Juego:                                                                      **"
     );
     console.log(
       "**                                                                                                **"
     );
     console.log(
-      "**      1. Tragamonedas (3 Tambores)                   2.Tragamonedas (6 Tambores)                **"
+      "**      1. Tragamonedas (3 Tambores)                  2.Tragamonedas (6 Tambores)                 **"
     );
     console.log(
       "**                                                                                                **"
@@ -153,7 +154,7 @@ export class Casino {
       "**                                                                                                **"
     );
     console.log(
-      "**      5. Ruleta                                     0.Si desea Salir                            **"
+      "**      5. Ruleta                                     0. SALIR                                    **"
     );
     console.log(
       "**                                                                                                **"
@@ -169,13 +170,13 @@ export class Casino {
   validarEleccion(): number {
     // Se valida la elecccion de juego entre 0 p/salir y 5
     let selecJuego: number = parseInt(
-      rsl.question("Seleccione el juego Deseado : "),
+      rsl.question("Seleccione el Juego: "),
       10
     );
     while (selecJuego < 0 || selecJuego > 5 || selecJuego == undefined) {
-      console.log("La seleccion es invalido");
+      console.log("La selección es inválida");
       let reValidarJuego: number = parseInt(
-        rsl.question("Seleccione nuevamente el juego Deseado : "),
+        rsl.question("Seleccione nuevamente el Juego: "),
         10
       );
       selecJuego = reValidarJuego;
@@ -203,14 +204,14 @@ export class Casino {
       this.mostrarMenu();
       console.log(
         jugadorSeleccionado.getNombre(),
-        " su Saldo es: ",
+        "Su Saldo es: ",
         jugadorSeleccionado.getFichas()
       );
       if (jugadorSeleccionado.getFichas() > 0) {
         seleccion = this.validarEleccion(); //Se llama a la eleccion de juego y validacion
       } else {
-        console.log("El saldo no es Suficiente para Continuar Jugando ");
-        console.log("Gracias Por su vicita Lo esperamos Pronto. ('=') ");
+        console.log("Saldo insuficiente para seguir jugando ");
+        console.log("¡Gracias por su visita! Lo esperamos pronto. ('=') ");
         seleccion = 0;
       }
     }

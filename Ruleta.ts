@@ -102,6 +102,7 @@ export class Ruleta extends JuegoCasino {
     if (jugador.getFichas() <= 0) {
       console.log("No tienes más saldo para jugar");
     }
+    rsl.question("Presione ENTER para retornar al MENU PRINCIPAL.");
   }
 
   public jugar(jugador: Jugador) {
