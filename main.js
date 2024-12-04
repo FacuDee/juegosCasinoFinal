@@ -19,7 +19,7 @@ var dados = new Dados_1.Dados("Dados", 10, "Natural, gana sacando 7 u 11 en el p
 var tragamonedasClasico = new TragamonedasClasico_1.TragamonedasClasico();
 var tragamonedasPlus = new TragamonedasPlus_1.TragamonedasPlus();
 var ruleta = new Ruleta_1.Ruleta(15, 15, 0);
-var blackJack = new BlackJack_1.BlackJack(9, arrJugadores[4]);
+var blackJack = new BlackJack_1.BlackJack(10, arrJugadores[4], 10);
 //********Se construyen las variables de Cadajuego con sus parametros******* */
 var arrJuegos = [];
 arrJuegos.push(tragamonedasClasico);
