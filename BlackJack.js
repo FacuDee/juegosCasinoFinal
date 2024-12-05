@@ -20,14 +20,18 @@ var rls = require("readline-sync");
 var JuegoCasino_1 = require("./JuegoCasino");
 var BlackJack = /** @class */ (function (_super) {
     __extends(BlackJack, _super);
-    function BlackJack(apuestaMin, jugador) {
+    function BlackJack(apuestaMin, jugador, apuesta) {
         var _this = _super.call(this, "BlackJack", apuestaMin, "Obtén un puntaje lo más cercano a 21 sin pasarte, superando al crupier.") || this;
         _this.jugador = jugador;
         _this.mazo = _this.crearMazo();
         _this.manoJugador = [];
         _this.manoCrupier = [];
+        _this.apuesta = apuesta;
         return _this;
     }
+    BlackJack.prototype.setApuesta = function (apuesta) {
+        this.apuesta = apuesta;
+    };
     BlackJack.prototype.crearMazo = function () {
         var palos = ["Corazones", "Diamantes", "Tréboles", "Picas"];
         var valores = [
@@ -97,10 +101,8 @@ var BlackJack = /** @class */ (function (_super) {
     };
     BlackJack.prototype.turnoJugador = function () {
         console.log("Tu mano:", this.manoJugador, "Puntaje:", this.calcularPuntaje(this.manoJugador));
-        var decision = rls
-            .question("¿Quieres 'pedir' carta o 'quedarte'? (hit/stand): ")
-            .toLowerCase();
-        while (decision === "Pedir Carta") {
+        var decision = rls.question("¿Quieres otra carta ingresa: Pedir o 'quedarte'?: ").toLowerCase();
+        while (decision == "pedir") {
             this.manoJugador.push(this.mazo.pop());
             var puntaje = this.calcularPuntaje(this.manoJugador);
             console.log("Tu nueva mano:", this.manoJugador, "Puntaje:", puntaje);
@@ -108,9 +110,7 @@ var BlackJack = /** @class */ (function (_super) {
                 console.log("Te pasaste. ¡Quedas fuera!");
                 return;
             }
-            decision = rls
-                .question("¿Quieres pedir otra carta o quedarte? (hit/stand): ")
-                .toLowerCase();
+            decision = rls.question("¿Quieres otra carta ingresa: Pedir o 'quedarte'?: ").toLowerCase();
         }
     };
     BlackJack.prototype.turnoCrupier = function () {
@@ -123,37 +123,66 @@ var BlackJack = /** @class */ (function (_super) {
     BlackJack.prototype.determinarGanador = function () {
         var puntajeJugador = this.calcularPuntaje(this.manoJugador);
         var puntajeCrupier = this.calcularPuntaje(this.manoCrupier);
+        var perderOGanar;
         console.log("Tu puntaje:", puntajeJugador, "Puntaje del crupier:", puntajeCrupier);
         if (puntajeJugador > 21) {
-            console.log("Te pasaste. ¡Perdiste!");
+            console.log("Te pasaste. ¡Perdiste! ", this.apuesta, " fichas");
+            perderOGanar = false;
         }
         else if (puntajeCrupier > 21 || puntajeJugador > puntajeCrupier) {
-            console.log("¡Ganaste!");
+            console.log("¡Ganaste! tu apuesta se multiplica un 50%");
+            perderOGanar = true;
         }
         else if (puntajeJugador < puntajeCrupier) {
-            console.log("Perdiste!");
+            perderOGanar = false;
+            console.log("Perdiste! ", this.apuesta, " fichas");
         }
         else {
-            console.log("Empate");
+            perderOGanar = false;
+            console.log("Empate lo Siento.. Gana la Casa, Perdiste ", this.apuesta, " fichas");
         }
+        return perderOGanar; //parametro para ganar(True) o perder(false) apuesta
+    };
+    BlackJack.prototype.validarApuesta = function (jugador) {
+        console.log("Su saldo es de: ", this.jugador.getFichas());
+        var eleccionApuesta = rls.questionInt("La apuesta minima es " + this.getApuestaMin() + "; cuanto desea apostar?: ");
+        if (eleccionApuesta >= this.getApuestaMin() && eleccionApuesta <= jugador.getFichas()) {
+            jugador.apostar(eleccionApuesta); // metodo de Jugador, Se resta apuesta al saldoTotal.
+        }
+        else {
+            while (eleccionApuesta < this.getApuestaMin() || eleccionApuesta > jugador.getFichas()) {
+                // mayor a saldo y mayor que apuesta minima 5
+                jugador.apostar(eleccionApuesta); // metodo de Jugador, Se resta apuesta al saldoTotal
+                eleccionApuesta = parseInt(rls.question("La apuesta minima es " + this.getApuestaMin() + "; cuanto desea apostar?: "), 10);
+            }
+        }
+        this.setApuesta(eleccionApuesta);
     };
     BlackJack.prototype.resultado = function () {
         //método abstracto de la clase padre
-        this.determinarGanador();
+        if (this.determinarGanador()) {
+            var ganancia = Math.floor(this.apuesta * 1.5);
+            this.jugador.ganarApuesta(ganancia);
+            // si gana se le da una ganancia del 50%
+        }
+        else {
+            var ganancia = 0;
+            this.jugador.ganarApuesta(ganancia);
+        }
     };
     // Iniciar
-    BlackJack.prototype.jugar = function () {
-        if (this.jugador.getFichas() < this.getApuestaMin()) {
-            console.log("".concat(this.jugador.getNombre(), " no tiene suficientes fichas para apostar."));
-            return;
-        }
+    BlackJack.prototype.jugar = function (jugadorSeleccionado) {
+        this.jugador = jugadorSeleccionado; // se asigna a jugadorinterno el jugadorSeleccionado en Casino
+        this.validarApuesta(this.jugador);
         this.iniciarJuego();
         this.repartirCartas();
         this.turnoJugador();
         if (this.calcularPuntaje(this.manoJugador) <= 21) {
             this.turnoCrupier();
-            this.determinarGanador();
+            this.resultado();
         }
+        jugadorSeleccionado = this.jugador;
+        console.log("El jugador ", jugadorSeleccionado.getNombre(), " se retira con Saldo final: ", jugadorSeleccionado.getFichas());
         var teclaParaAbanzar = rls.question(" Presione ENTER para retornar al MENU PRINCIPAL ");
     };
     return BlackJack;
