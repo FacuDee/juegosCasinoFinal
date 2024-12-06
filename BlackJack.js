@@ -101,11 +101,11 @@ var BlackJack = /** @class */ (function (_super) {
     };
     BlackJack.prototype.turnoJugador = function () {
         console.log("Tu mano:", this.manoJugador, "Puntaje:", this.calcularPuntaje(this.manoJugador));
-        var decision = rls.question("¿Queres otra carta? (Ingresá 'Pido' o 'Quedo'?: ").toLowerCase();
+        var decision = rls.question("Queres otra carta? (Ingresa 'Pido' o 'Quedo'?: ").toLowerCase();
         // Antes que nada valido si el usuario ingresó una de las dos palabras u otra
         while (decision !== "pido" && decision !== "quedo") {
-            console.log("Entrada inválida. Por favor, ingresá 'pido' para pedir otra carta o 'quedo' para mantener tu mano.");
-            decision = rls.question("¿Querés otra carta? (Ingresá 'pido' o 'quedo'): ").toLowerCase();
+            console.log("Entrada inválida. Por favor, ingresa 'pido' para pedir otra carta o 'quedo' para mantener tu mano.");
+            decision = rls.question("Querés otra carta? (Ingresa 'pido' o 'quedo'): ").toLowerCase();
         }
         // una vez que se valida: 
         while (decision === "pido") {
@@ -113,14 +113,14 @@ var BlackJack = /** @class */ (function (_super) {
             var puntaje = this.calcularPuntaje(this.manoJugador);
             console.log("Tu nueva mano:", this.manoJugador, "Puntaje:", puntaje);
             if (puntaje > 21) {
-                console.log("Te pasaste. ¡Quedas afuera!");
+                console.log("Te pasaste. Quedas afuera!");
                 return; // sale si supera
             }
-            decision = rls.question("¿Queres otra carta? (Ingresa 'Pido' o 'Quedo') ").toLowerCase();
+            decision = rls.question("Queres otra carta? (Ingresa 'Pido' o 'Quedo') ").toLowerCase();
             // Valido nuevamente,
             while (decision !== "pido" && decision !== "quedo") {
-                console.log("Entrada invalida. Por favor, ingresá 'Pido' para pedir otra carta o 'Quedo' para mantener tu mano.");
-                decision = rls.question("¿Queres otra carta? (Ingresá 'Pido' o 'Quedo'): ").toLowerCase();
+                console.log("Entrada invalida. Por favor, ingresa 'Pido' para pedir otra carta o 'Quedo' para mantener tu mano.");
+                decision = rls.question("Queres otra carta? (Ingresa 'Pido' o 'Quedo'): ").toLowerCase();
             }
         }
     };
