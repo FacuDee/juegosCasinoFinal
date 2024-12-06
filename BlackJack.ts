@@ -113,12 +113,12 @@ export class BlackJack extends JuegoCasino {
         return; // sale si supera
       }
 
-      decision = rls.question("¿Queres otra carta? (Ingresá 'Pido' o 'Quedo') ").toLowerCase();
+      decision = rls.question("¿Queres otra carta? (Ingresa 'Pido' o 'Quedo') ").toLowerCase();
 
       // Valido nuevamente,
     while (decision !== "pido" && decision !== "quedo") {
-      console.log("Entrada inválida. Por favor, ingresá 'Pido' para pedir otra carta o 'Quedo' para mantener tu mano.");
-      decision = rls.question("¿Querés otra carta? (Ingresá 'Pido' o 'Quedo'): ").toLowerCase();
+      console.log("Entrada invalida. Por favor, ingresá 'Pido' para pedir otra carta o 'Quedo' para mantener tu mano.");
+      decision = rls.question("¿Queres otra carta? (Ingresá 'Pido' o 'Quedo'): ").toLowerCase();
     }
   }
 }
@@ -140,10 +140,10 @@ private turnoCrupier(): void {
     let perderOGanar:boolean;
     console.log( "Tu puntaje:", puntajeJugador, "Puntaje del crupier:", puntajeCrupier );
       if (puntajeJugador > 21) {
-        console.log("Te pasaste. ¡Perdiste! ",this.apuesta," fichas");
+        console.log("Te pasaste. Perdiste! ",this.apuesta," fichas");
         perderOGanar=false;
       } else if (puntajeCrupier > 21 || puntajeJugador > puntajeCrupier) {
-        console.log("¡Ganaste! tu apuesta se multiplica un 50%");
+        console.log("Ganaste! tu apuesta se multiplica un 50%");
         perderOGanar=true;
       } else if (puntajeJugador < puntajeCrupier) {
         perderOGanar=false;
@@ -158,16 +158,16 @@ private turnoCrupier(): void {
   public validarApuesta(jugador: Jugador): void {
     console.log("Su saldo es de: ", this.jugador.getFichas());
     let eleccionApuesta: number = rls.questionInt(
-        "La apuesta mínima es: " + this.getApuestaMin() + "; ¿cuánto desea apostar?: "
+        "La apuesta minima es: " + this.getApuestaMin() + "; cuanto desea apostar?: "
     );
 
     while (eleccionApuesta < this.getApuestaMin() || eleccionApuesta > jugador.getFichas()) {
         console.log(
-            "La apuesta no es válida. Debe estar entre " +
+            "La apuesta no es valida. Debe estar entre " +
             this.getApuestaMin() + " y " + jugador.getFichas()
         );
         eleccionApuesta = rls.questionInt(
-            "Por favor, ingrese una apuesta válida: "
+            "Por favor, ingrese una apuesta valida: "
         )};
 
     jugador.apostar(eleccionApuesta); // Una vez q se valida, restamos
@@ -200,7 +200,7 @@ private turnoCrupier(): void {
       this.resultado();
     }
     jugadorSeleccionado=this.jugador;
-    console.log("El jugador ", jugadorSeleccionado.getNombre()," se retira con Saldo final: ", jugadorSeleccionado.getFichas());
+    console.log("El jugador ", jugadorSeleccionado.getNombre()," se retira con saldo final: ", jugadorSeleccionado.getFichas());
     let teclaParaAbanzar: string = rls.question(
       " Presione ENTER para retornar al MENU PRINCIPAL "
     );
