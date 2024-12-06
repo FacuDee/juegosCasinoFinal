@@ -101,23 +101,34 @@ var BlackJack = /** @class */ (function (_super) {
     };
     BlackJack.prototype.turnoJugador = function () {
         console.log("Tu mano:", this.manoJugador, "Puntaje:", this.calcularPuntaje(this.manoJugador));
-        var decision = rls.question("¿Quieres otra carta ingresa: Pedir o 'quedarte'?: ").toLowerCase();
-        while (decision == "pedir") {
+        var decision = rls.question("¿Queres otra carta? (Ingresá 'Pido' o 'Quedo'?: ").toLowerCase();
+        // Antes que nada valido si el usuario ingresó una de las dos palabras u otra
+        while (decision !== "pido" && decision !== "quedo") {
+            console.log("Entrada inválida. Por favor, ingresá 'pido' para pedir otra carta o 'quedo' para mantener tu mano.");
+            decision = rls.question("¿Querés otra carta? (Ingresá 'pido' o 'quedo'): ").toLowerCase();
+        }
+        // una vez que se valida: 
+        while (decision === "pido") {
             this.manoJugador.push(this.mazo.pop());
             var puntaje = this.calcularPuntaje(this.manoJugador);
             console.log("Tu nueva mano:", this.manoJugador, "Puntaje:", puntaje);
             if (puntaje > 21) {
-                console.log("Te pasaste. ¡Quedas fuera!");
-                return;
+                console.log("Te pasaste. ¡Quedas afuera!");
+                return; // sale si supera
             }
-            decision = rls.question("¿Quieres otra carta ingresa: Pedir o 'quedarte'?: ").toLowerCase();
+            decision = rls.question("¿Queres otra carta? (Ingresá 'Pido' o 'Quedo') ").toLowerCase();
+            // Valido nuevamente,
+            while (decision !== "pido" && decision !== "quedo") {
+                console.log("Entrada inválida. Por favor, ingresá 'Pido' para pedir otra carta o 'Quedo' para mantener tu mano.");
+                decision = rls.question("¿Querés otra carta? (Ingresá 'Pido' o 'Quedo'): ").toLowerCase();
+            }
         }
     };
     BlackJack.prototype.turnoCrupier = function () {
-        console.log("Mano del crupier:", this.manoCrupier);
+        console.log("Mano del crupier: ", this.manoCrupier);
         while (this.calcularPuntaje(this.manoCrupier) < 17) {
             this.manoCrupier.push(this.mazo.pop());
-            console.log("El/la crupier toma una carta. Nueva mano:", this.manoCrupier);
+            console.log("El/la crupier toma una carta. Nueva mano: ", this.manoCrupier);
         }
     };
     BlackJack.prototype.determinarGanador = function () {
@@ -139,23 +150,20 @@ var BlackJack = /** @class */ (function (_super) {
         }
         else {
             perderOGanar = false;
-            console.log("Empate lo Siento.. Gana la Casa, Perdiste ", this.apuesta, " fichas");
+            console.log("Empate. Lo siento.. Gana la casa. Perdiste ", this.apuesta, " fichas");
         }
         return perderOGanar; //parametro para ganar(True) o perder(false) apuesta
     };
     BlackJack.prototype.validarApuesta = function (jugador) {
         console.log("Su saldo es de: ", this.jugador.getFichas());
-        var eleccionApuesta = rls.questionInt("La apuesta minima es " + this.getApuestaMin() + "; cuanto desea apostar?: ");
-        if (eleccionApuesta >= this.getApuestaMin() && eleccionApuesta <= jugador.getFichas()) {
-            jugador.apostar(eleccionApuesta); // metodo de Jugador, Se resta apuesta al saldoTotal.
+        var eleccionApuesta = rls.questionInt("La apuesta mínima es: " + this.getApuestaMin() + "; ¿cuánto desea apostar?: ");
+        while (eleccionApuesta < this.getApuestaMin() || eleccionApuesta > jugador.getFichas()) {
+            console.log("La apuesta no es válida. Debe estar entre " +
+                this.getApuestaMin() + " y " + jugador.getFichas());
+            eleccionApuesta = rls.questionInt("Por favor, ingrese una apuesta válida: ");
         }
-        else {
-            while (eleccionApuesta < this.getApuestaMin() || eleccionApuesta > jugador.getFichas()) {
-                // mayor a saldo y mayor que apuesta minima 5
-                jugador.apostar(eleccionApuesta); // metodo de Jugador, Se resta apuesta al saldoTotal
-                eleccionApuesta = parseInt(rls.question("La apuesta minima es " + this.getApuestaMin() + "; cuanto desea apostar?: "), 10);
-            }
-        }
+        ;
+        jugador.apostar(eleccionApuesta); // Una vez q se valida, restamos
         this.setApuesta(eleccionApuesta);
     };
     BlackJack.prototype.resultado = function () {
