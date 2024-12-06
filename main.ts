@@ -27,7 +27,7 @@ const dados: Dados = new Dados(
 );
 const tragamonedasClasico: TragamonedasClasico = new TragamonedasClasico();
 const tragamonedasPlus: TragamonedasPlus = new TragamonedasPlus();
-const ruleta: Ruleta = new Ruleta(15, 15, 0);
+const ruleta: Ruleta = new Ruleta(15);
 const blackJack: BlackJack = new BlackJack(10, arrJugadores[4],10);
 //********Se construyen las variables de Cadajuego con sus parametros******* */
 
